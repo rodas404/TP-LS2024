@@ -6,8 +6,8 @@ function Footer(){
             <ul>
                 Realizado por:
                 <li>Rodrigo Bernarda 2021136740</li>
-                <li></li>
-                <li></li>
+                <li>Gonçalo Fontes 2021144224</li>
+                <li>Bruno Correia 2015015880</li>
             </ul>
         </footer>
 
