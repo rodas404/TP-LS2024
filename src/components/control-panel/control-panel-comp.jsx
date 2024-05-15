@@ -3,13 +3,13 @@ import "./control-panel.css";
 
 //puro copypaste das fichas, quero que aqui se controle as componentes principais do jogo
 function ControlPanel(props) {
+  
   const { gameStarted, selectedLevel, onGameStart, onLevelChange, timer } =
     props;
   const gameStartedClass = gameStarted ? " gameStarted" : "";
-
+  
   return (
     <section id="panel-control">
-      <h3 className="sr-only">Escolha do Nível</h3>
       <form className="form">
         <fieldset className="form-group">
           <label htmlFor="btLevel">Nível:</label>
@@ -35,9 +35,6 @@ function ControlPanel(props) {
         </button>
       </form>
       <div className="form-metadata">
-        <p id="message" role="alert" className="hide">
-          Clique em Iniciar o Jogo!
-        </p>
         <dl className={`list-item left${gameStartedClass}`}>
           <dt>Tempo de Jogo:</dt>
           <dd id="gameTime">{timer}</dd>
@@ -45,7 +42,7 @@ function ControlPanel(props) {
         <dl className={`list-item left${gameStartedClass}`}>
           <dt>Minas:</dt>
           <dd id="points">0</dd>
-        </dl>
+      </dl> 
       </div>
     </section>
   );
