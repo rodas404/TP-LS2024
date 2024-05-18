@@ -1,4 +1,4 @@
-function revealZeros(grid, rowIndex, cellIndex) {
+function revealZeros(grid, rowIndex, cellIndex, nonMineCount) {
     // diferentes direções
     const directions = [
         [-1, -1], [-1, 0], [-1, 1],
@@ -6,9 +6,11 @@ function revealZeros(grid, rowIndex, cellIndex) {
         [1, -1], [1, 0], [1, 1]
     ];
 
-    // marcar a celula atual como revelada
-    grid[rowIndex][cellIndex].revealed = true;
-
+    // marcar a celula atual como revelada se nao tiver flag
+    if (grid[rowIndex][cellIndex].flag === 0) {
+        grid[rowIndex][cellIndex].revealed = true;
+        nonMineCount--;
+    }
     
     for (let i = 0; i < directions.length; i++) { //ciclo para percorrer todas as direções marcadas acima (8)
         const [dx, dy] = directions[i]; //deconstroi os arrays marcados acima, podendo ser [-1,-1], [-1,0] etc
@@ -19,15 +21,17 @@ function revealZeros(grid, rowIndex, cellIndex) {
         if (newRow >= 0 && newRow < grid.length && newCell >= 0 && newCell < grid[0].length) {
             const cell = grid[newRow][newCell];
 
-            // se a celula adjacente for 0 e nao estiver revelada volta ao inicio
-            if (cell.value === 0 && !cell.revealed) {
-                revealZeros(grid, newRow, newCell);
-            } else {
-                // se nao for 0 revela simplesmente
+            // se a celula adjacente for 0 e nao estiver revelada, nem com flag, volta ao inicio atualiza numero
+            if (cell.value === 0 && !cell.revealed && cell.flag === 0) {
+                nonMineCount = revealZeros(grid, newRow, newCell, nonMineCount);
+            } 
+            else if(!cell.revealed && cell.flag === 0){
                 cell.revealed = true;
+                nonMineCount--;
             }
         }
     }
+    return nonMineCount;
 }
 
 export default revealZeros;

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
 function Cell({ cellDetails, updateRightClick, updateReveal }) {
     const { cell, rowIndex, cellIndex } = cellDetails;
-    const {value, revealed, flag} = cell;
+    const {value, flag} = cell;
     
 
     const handleClick = () => {
-        console.log(`Celula clicada: ((${rowIndex}, ${cellIndex}), flag: ${flag})`);
+        console.log(`Celula ((${rowIndex}, ${cellIndex}): value: ${value}, flag: ${flag})`);
     };
 
     const handleRightClick = (event) => {
@@ -23,10 +23,11 @@ function Cell({ cellDetails, updateRightClick, updateReveal }) {
     };
 
     return (
-        <div className="cell board-cell" onClick={revealCell} onContextMenu={handleRightClick}>
-            {cell.revealed ? cell.value : ""}
-        </div>
-    );
+    <div className="cell board-cell" onClick={revealCell} onContextMenu={handleRightClick}>
+        {cell.revealed ? (cell.value === 'M' ? '💣' : cell.value) : 
+        (flag === 1 ? '🚩' : (flag === 2 ? '❓' : ""))}
+    </div>
+);
 }
 
 export default Cell;

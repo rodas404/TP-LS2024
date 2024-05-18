@@ -12,19 +12,25 @@ function App(){
   const [gameStarted, setGameStarted] = useState(false);
   const [levelDetails, setLevelDetails] = useState({ numRows: 0, numCols: 0, numMines: 0 });
   const [timer, setTimer] = useState(0);
+  const [minesLeft, setMinesLeft] = useState(0);
+  const [result, setResult] = useState(null);
+  const [selectedLevel, setSelectedLevel] = useState(0);
 
   const handleGameStart = () => {
     if (gameStarted) {
       console.log("Termina Jogo");
       setGameStarted(false);
-    } else {
+    } 
+    else {
       console.log("Inicia Jogo");
       setGameStarted(true);
+      setTimer(0);
     }
   };
 
   const handleLevelChange = (event) => {
     const { value } = event.currentTarget;
+    setSelectedLevel(event.target.value);
     let newLevelDetails;
   
     switch(value){
@@ -69,17 +75,26 @@ function App(){
       }, 1000);
     } else if (!gameStarted && timer !== 0) {
       clearInterval(interval);
-      setTimer(0);
     }
   
     return () => clearInterval(interval);
   }, [gameStarted, timer]);
 
+
+  const gameInfo = (result, nFlags, numMines) =>{
+    if(result !== null){
+      setGameStarted(false);
+    }
+    let minesLeft = numMines - nFlags;
+    setMinesLeft(minesLeft);
+    setResult(result);
+  };
+
   return(
     <div className="App">
       <Header />
-      <ControlPanel onLevelChange={handleLevelChange} gameStarted={gameStarted} onGameStart={handleGameStart} timer={timer}/> 
-      <Board levelDetails={levelDetails} gameStarted={gameStarted}/>
+      <ControlPanel onLevelChange={handleLevelChange} selectedLevel={selectedLevel} gameStarted={gameStarted} onGameStart={handleGameStart} timer={timer} minesLeft={minesLeft} result={result}/> 
+      <Board levelDetails={levelDetails} gameStarted={gameStarted} gameInfo={gameInfo}/>
       <Footer />
     </div>
   )

@@ -1,13 +1,13 @@
 import React from "react";
 import "./control-panel.css"; 
+import GameOver from '../game-over/game-over-comp';
 
-//puro copypaste das fichas, quero que aqui se controle as componentes principais do jogo
+//puro copypaste das fichas
 function ControlPanel(props) {
   
-  const { gameStarted, selectedLevel, onGameStart, onLevelChange, timer } =
+  const { gameStarted, selectedLevel, onGameStart, onLevelChange, timer, minesLeft, result } =
     props;
   const gameStartedClass = gameStarted ? " gameStarted" : "";
-  
   return (
     <section id="panel-control">
       <form className="form">
@@ -41,10 +41,11 @@ function ControlPanel(props) {
         </dl>
         <dl className={`list-item left${gameStartedClass}`}>
           <dt>Minas:</dt>
-          <dd id="points">0</dd>
+          <dd id="points">{minesLeft}</dd>
       </dl> 
       </div>
-    </section>
+      {result !== null && <GameOver result={result} timer={timer} level={selectedLevel}/>}
+    </section>   
   );
 }
 
