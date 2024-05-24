@@ -2,11 +2,8 @@ import React from "react";
 import "./control-panel.css"; 
 import GameOver from '../game-over/game-over-comp';
 
-//puro copypaste das fichas
 function ControlPanel(props) {
-  
-  const { gameStarted, selectedLevel, onGameStart, onLevelChange, timer, minesLeft, result } =
-    props;
+  const { gameStarted, selectedLevel, onGameStart, onLevelChange, timer, minesLeft, result, onRestart } = props;
   const gameStartedClass = gameStarted ? " gameStarted" : "";
   return (
     <section id="panel-control">
@@ -42,9 +39,9 @@ function ControlPanel(props) {
         <dl className={`list-item left${gameStartedClass}`}>
           <dt>Minas:</dt>
           <dd id="points">{minesLeft}</dd>
-      </dl> 
+        </dl> 
       </div>
-      {result !== null && <GameOver result={result} timer={timer} level={selectedLevel}/>}
+      {result !== null && <GameOver result={result} timer={timer} level={selectedLevel} onRestart={onRestart} />}
     </section>   
   );
 }

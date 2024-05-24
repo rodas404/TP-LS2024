@@ -1,1 +1,59 @@
-/* imagino meter aqui as diferentes cores para as celulas em especifico */
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #808080;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px #fff inset, -2px -2px 4px #000 inset;
+}
+
+.cell.revealed {
+  background-color: #d3d3d3;
+  border: 1px solid #bfbfbf;
+  box-shadow: none;
+}
+
+.cell.mine {
+  background-color: #d3d3d3;
+  color: red;
+}
+
+.cell.flagged {
+  background-color: #d3d3d3;
+}
+
+.cell.number-1 {
+  color: blue;
+}
+
+.cell.number-2 {
+  color: green;
+}
+
+.cell.number-3 {
+  color: red;
+}
+
+.cell.number-4 {
+  color: darkblue;
+}
+
+.cell.number-5 {
+  color: darkred;
+}
+
+.cell.number-6 {
+  color: turquoise;
+}
+
+.cell.number-7 {
+  color: black;
+}
+
+.cell.number-8 {
+  color: gray;
+}

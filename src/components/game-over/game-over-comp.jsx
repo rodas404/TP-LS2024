@@ -1,16 +1,16 @@
+// game-over.jsx
 import React from 'react';
+import './game-over.css';
 
-function GameOver({ result, timer, level}){
-    
-    //criar uma formula muito fixe para determinar a pontuacao/nota de um jogo
-      return(
-        //deve ter um botao para iniciar novamente partida
-        <div>
-            {result === 1 ? <h1>MAQUINA</h1> : <h1>LOOOOOOOOOOOOOOL</h1>}
-            <h2>Tempo usado: {timer}</h2>
-            <h2>Nivel: {level}</h2>
-        </div>
-    );
+function GameOver({ result, timer, level, onRestart }) {
+  return (
+    <div className="game-over">
+      {result === 1 ? <h1>MAQUINA</h1> : <h1>PERDEU</h1>}
+      <h2>Tempo usado: {timer}</h2>
+      <h2>Nivel: {level}</h2>
+      <button onClick={onRestart}>Iniciar Novamente</button>
+    </div>
+  );
 }
 
 export default GameOver;

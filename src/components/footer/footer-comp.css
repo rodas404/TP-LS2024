@@ -1,0 +1,23 @@
+
+.footer {
+    background-color: #808080; /* Fundo cinza escuro */
+    color: white; /* Cor do texto branca */
+    padding: 20px 0; /* Espaçamento em torno do conteúdo */
+    text-align: center; /* Texto centralizado */
+}
+
+.footer ul {
+    list-style-type: none; /* Sem marcadores */
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+.footer li {
+    margin-bottom: 5px; /* Espaço entre os itens da lista */
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+/* Podes adicionar estilos adicionais, como fontes personalizadas ou ícones relacionados ao Minesweeper, para maior consistência temática. */

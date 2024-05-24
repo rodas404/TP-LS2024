@@ -1,0 +1,36 @@
+/* game-over.css */
+.game-over {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 2px solid #808080;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  .game-over h1 {
+    font-family: 'Lucida Console', Monaco, monospace;
+    font-size: 24px;
+    color: #ff0000;
+  }
+  
+  .game-over h2 {
+    font-family: 'Lucida Console', Monaco, monospace;
+    font-size: 18px;
+    color: #000000;
+  }
+  
+  .game-over button {
+    font-family: 'Lucida Console', Monaco, monospace;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #ff0000;
+    color: #fff;
+    border: 1px solid #808080;
+    cursor: pointer;
+  }
+  
+  .game-over button:hover {
+    background-color: #cc0000;
+  }
+  

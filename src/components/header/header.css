@@ -1,0 +1,23 @@
+/* header.css */
+
+.header-container {
+    background-color: #808080; /* Cinza médio */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .header-title {
+    color: #f7f7f7;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .header-subtitle {
+    color: #f7f7f7;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    margin-top: 0;
+  }
+  
+  
