@@ -6,6 +6,7 @@ import Header from "./components/header/header-comp";
 import Board from './components/board/board-comp';
 import Footer from "./components/footer/footer-comp";
 import ControlPanel from "./components/control-panel/control-panel-comp";
+import GameOver from './components/game-over/game-over-comp';
 
 function App(){
   
@@ -93,8 +94,9 @@ function App(){
   return(
     <div className="App">
       <Header />
-      <ControlPanel onLevelChange={handleLevelChange} selectedLevel={selectedLevel} gameStarted={gameStarted} onGameStart={handleGameStart} timer={timer} minesLeft={minesLeft} result={result}/> 
-      <Board levelDetails={levelDetails} gameStarted={gameStarted} gameInfo={gameInfo}/>
+      <ControlPanel onLevelChange={handleLevelChange} selectedLevel={selectedLevel} gameStarted={gameStarted} onGameStart={handleGameStart} timer={timer} minesLeft={minesLeft} /> 
+      {result !== null && <GameOver result={result} timer={timer} level={selectedLevel} onGameStart={handleGameStart}/>}
+      <Board levelDetails={levelDetails} gameStarted={gameStarted} gameInfo={gameInfo} />
       <Footer />
     </div>
   )

@@ -35,7 +35,7 @@ function Board({ levelDetails, gameStarted, gameInfo }) {
 
   const updateRightClick = (rowIndex, cellIndex) => {
     let nFlags = numFlag;
-    if (!gameStarted) {
+    if (!gameStarted || grid[rowIndex][cellIndex].revealed === true) {
       return;
     }
     let newGrid = JSON.parse(JSON.stringify(grid));

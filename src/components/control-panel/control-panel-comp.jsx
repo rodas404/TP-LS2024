@@ -1,9 +1,9 @@
 import React from "react";
 import "./control-panel.css"; 
-import GameOver from '../game-over/game-over-comp';
+
 
 function ControlPanel(props) {
-  const { gameStarted, selectedLevel, onGameStart, onLevelChange, timer, minesLeft, result, onRestart } = props;
+  const { gameStarted, selectedLevel, onGameStart, onLevelChange, timer, minesLeft} = props;
   const gameStartedClass = gameStarted ? " gameStarted" : "";
   return (
     <section id="panel-control">
@@ -41,7 +41,7 @@ function ControlPanel(props) {
           <dd id="points">{minesLeft}</dd>
         </dl> 
       </div>
-      {result !== null && <GameOver result={result} timer={timer} level={selectedLevel} onRestart={onRestart} />}
+      
     </section>   
   );
 }
