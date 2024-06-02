@@ -16,7 +16,7 @@ function ControlPanel(props) {
             onChange={onLevelChange}
             disabled={gameStarted}
           >
-            <option value="0">Seleccione...</option>
+            <option value="0">Selecione...</option>
             <option value="1">Básico (9x9 - 10 minas)</option>
             <option value="2">Intermédio (16x16 - 40 minas)</option>
             <option value="3">Avançado (30x16 - 99 minas)</option>
@@ -38,7 +38,7 @@ function ControlPanel(props) {
         </dl>
         <dl className={`list-item left${gameStartedClass}`}>
           <dt>Minas:</dt>
-          <dd id="points">{minesLeft}</dd>
+          <dd id="mines">{minesLeft}</dd>
         </dl> 
       </div>
       

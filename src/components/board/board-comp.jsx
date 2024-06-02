@@ -3,6 +3,7 @@ import createBoard from "../../helpers/createBoard";
 import Cell from '../cell/cell-comp';
 import './board.css';
 import revealZeros from '../../helpers/revealZeros';
+import helpFirstClick from '../../helpers/helpFirstClick';
 
 const GAME_STATES = {
   loss: 0,
@@ -14,16 +15,18 @@ function Board({ levelDetails, gameStarted, gameInfo }) {
   const { numRows, numCols, numMines } = levelDetails;
   const [nonMineFound, setNonMineFound] = useState(0);
   const [numFlag, setNumFlags] = useState(0);
-  const [grid, setGrid] = useState([]);
+  const [board, setBoard] = useState([]);
   const [result, setResult] = useState(GAME_STATES.ongoing);
+  const [firstClick, setFirstClick] = useState(false);
   const nonMineCount = numRows * numCols - numMines;
 
   useEffect(() => {
     if (gameStarted) { // cria tabuleiro ao clicar no iniciar jogo
-      const newBoard = createBoard(numRows, numCols, numMines);
+      const boardCopy = createBoard(numRows, numCols, numMines);
+      setFirstClick(false);
       setNonMineFound(0);
       setResult(GAME_STATES.ongoing);
-      setGrid(newBoard);
+      setBoard(boardCopy);
       setNumFlags(0);
     }
   }, [levelDetails, numRows, numCols, numMines, gameStarted]);
@@ -32,42 +35,59 @@ function Board({ levelDetails, gameStarted, gameInfo }) {
     if (gameStarted) {
       gameInfo(GAME_STATES.ongoing, numFlag, numMines, nonMineFound);
     }
-  }, [grid, gameStarted, numFlag, numMines, gameInfo, nonMineFound]);
+  }, [board, gameStarted, numFlag, numMines, gameInfo, nonMineFound]);
 
-  const updateRightClick = (rowIndex, cellIndex) => {
+  const updateRightClick = (x, y) => {
     let nFlags = numFlag;
-    if (!gameStarted || grid[rowIndex][cellIndex].revealed === true) {
+    if (!gameStarted || board[x][y].revealed === true) {
       return;
     }
-    let newGrid = JSON.parse(JSON.stringify(grid));
-    if (newGrid[rowIndex][cellIndex].flag === 0) { // flag
-      newGrid[rowIndex][cellIndex].flag = 1;
+    let boardCopy = JSON.parse(JSON.stringify(board)); //cria copia da board
+    if (boardCopy[x][y].flag === 0) { // flag
+      boardCopy[x][y].flag = 1;
       nFlags++;
-    } else if (newGrid[rowIndex][cellIndex].flag === 1) { // question mark
-      newGrid[rowIndex][cellIndex].flag = 2;
+    } else if (boardCopy[x][y].flag === 1) { // question mark
+      boardCopy[x][y].flag = 2;
       nFlags--;
     } else {
-      newGrid[rowIndex][cellIndex].flag = 0; // reset
+      boardCopy[x][y].flag = 0; // reset
     }
-    setGrid(newGrid);
+    setBoard(boardCopy);
     setNumFlags(nFlags);
     gameInfo(result, nFlags, numMines, nonMineFound);
   };
 
-  const updateReveal = (rowIndex, cellIndex) => {
+  const updateReveal = (x, y) => {
     let newResult = result;
     let newNonMineFound = nonMineFound;
-    if (!gameStarted || grid[rowIndex][cellIndex].flag !== 0 || grid[rowIndex][cellIndex].revealed === true) {
+    if (!gameStarted || board[x][y].flag !== 0 || board[x][y].revealed === true) {
       return;
     }
-    if (grid[rowIndex][cellIndex].value === 'M') {
+    if(!firstClick){ //caso o primeiro click seja numa mina, da update na board
+      setFirstClick(true);
+      if(board[x][y].value === 'M'){
+        let boardCopy = JSON.parse(JSON.stringify(board));
+        let updatedBoard = helpFirstClick(boardCopy, x, y);
+        
+        if(updatedBoard[x][y].value === 0){
+          newNonMineFound = revealZeros(updatedBoard, x, y, nonMineFound);
+        }
+        else{
+          updatedBoard[x][y].revealed = true;
+        }
+        setBoard(updatedBoard);
+        setNonMineFound(newNonMineFound);
+        return;
+      }
+    }
+    if (board[x][y].value === 'M') {
       newResult = GAME_STATES.loss;
       newNonMineFound--;
       setResult(newResult);
       revealMines();
     }
-    if (grid[rowIndex][cellIndex].value === 0) {
-      newNonMineFound = revealZeros(grid, rowIndex, cellIndex, nonMineFound);
+    if (board[x][y].value === 0) {
+      newNonMineFound = revealZeros(board, x, y, nonMineFound);
     } else {
       newNonMineFound++;
     }
@@ -78,35 +98,35 @@ function Board({ levelDetails, gameStarted, gameInfo }) {
       revealMines();
     }
     gameInfo(newResult, numFlag, numMines, newNonMineFound);
-    setGrid(prevGrid => {
-      const newGrid = [...prevGrid];
-      newGrid[rowIndex][cellIndex].revealed = true;
-      return newGrid;
+    setBoard(prevBoard => {
+      const boardCopy = [...prevBoard];
+      boardCopy[x][y].revealed = true;
+      return boardCopy;
     });
   };
 
-  const revealMines = () => { // melhorar esta funcao de forma a ter delay enquanto revela as minas
-    let newGrid = JSON.parse(JSON.stringify(grid));
-    for (let i = 0; i < newGrid.length; i++) {
-      for (let j = 0; j < newGrid[i].length; j++) {
-        if (newGrid[i][j].value === 'M') {
-          newGrid[i][j].revealed = true;
+  const revealMines = () => { //revelar as minas em caso de derrota/vitoria
+    let boardCopy = JSON.parse(JSON.stringify(board));
+    for (let i = 0; i < boardCopy.length; i++) {
+      for (let j = 0; j < boardCopy[i].length; j++) {
+        if (boardCopy[i][j].value === 'M') {
+          boardCopy[i][j].revealed = true;
         }
       }
     }
-    setGrid(newGrid);
+    setBoard(boardCopy);
   };
 
   return (
     <div className="board">
-      {grid.map((row, rowIndex) => (
-        <div key={rowIndex} className="board-row">
-          {row.map((cell, cellIndex) => {
-            const key = `${rowIndex}-${cellIndex}`;
+      {board.map((row, x) => ( //cria linhas do array
+        <div key={x} className="board-row">
+          {row.map((cell, y) => { //cria colunas do array
+            const key = `${x}-${y}`;
             const cellDetails = {
               cell: cell,
-              rowIndex: rowIndex,
-              cellIndex: cellIndex,
+              x: x,
+              y: y,
             };
             return <Cell key={key} cellDetails={cellDetails} updateRightClick={updateRightClick} updateReveal={updateReveal} />;
           })}

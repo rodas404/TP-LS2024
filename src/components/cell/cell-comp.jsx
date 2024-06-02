@@ -1,23 +1,26 @@
 import React from 'react';
 import './cell.css';
+import mineImage from '../../assets/mine.png';
+import questionImage from '../../assets/question.png';
+import flagImage from '../../assets/flag.png';
 
 function Cell({ cellDetails, updateRightClick, updateReveal }) {
-  const { cell, rowIndex, cellIndex } = cellDetails;
+  const { cell, x, y } = cellDetails;
   const { value, flag, revealed } = cell;
 
   const handleClick = () => {
-    console.log(`Célula (${rowIndex}, ${cellIndex}): value: ${value}, flag: ${flag}`);
+    console.log(`Célula (${x}, ${y}): value: ${value}, flag: ${flag}`);
   };
 
   const handleRightClick = (event) => {
-    event.preventDefault();
-    updateRightClick(rowIndex, cellIndex);
+    event.preventDefault(); //previne comportamento padrao do js
+    updateRightClick(x, y);
     handleClick();
   };
 
   const revealCell = (event) => {
     event.preventDefault();
-    updateReveal(rowIndex, cellIndex);
+    updateReveal(x, y);
     handleClick();
   };
 
@@ -38,10 +41,10 @@ function Cell({ cellDetails, updateRightClick, updateReveal }) {
 
   return (
     <div className={getClassNames()} onClick={revealCell} onContextMenu={handleRightClick}>
-      {revealed ? (value === 'M' ? '💣' : value) : 
-      (flag === 1 ? '🚩' : (flag === 2 ? '❓' : ""))}
+      {/* {revealed ? (value === 'M' ? <img src={mineImage} alt="💣"/> : value) : 
+      (flag === 1 ? <img src={flagImage} alt="🚩"/> : (flag === 2 ? <img src={questionImage} alt="❓"/> : ""))} */}
     
-      {/* {value === 'M' ? '💣' : (revealed ? value : "")} */}
+      {value === 'M' ? '💣' : (revealed ? value : "")}
     </div>
   );
 }

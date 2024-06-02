@@ -1,4 +1,4 @@
-function createBoard(numRows, numCols, numberOfMines) {
+function createBoard(numRows, numCols, numMines) {
     //cria tabuleiro
     let board = new Array(numRows);
     for (let i = 0; i < numRows; i++) {
@@ -13,7 +13,7 @@ function createBoard(numRows, numCols, numberOfMines) {
     }
 
     //coloca as minas
-    for (let i = 0; i < numberOfMines; i++) {
+    for (let i = 0; i < numMines; i++) {
         let row = Math.floor(Math.random() * numRows);
         let col = Math.floor(Math.random() * numCols);
         //verifica se a celula ja tem bomba
