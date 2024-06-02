@@ -57,3 +57,9 @@
 .cell.number-8 {
   color: gray;
 }
+
+#img-mine {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

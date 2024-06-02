@@ -16,6 +16,7 @@ function App(){
   const [minesLeft, setMinesLeft] = useState(0);
   const [result, setResult] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(0);
+  const [nonMineFound, setNonMineFound] = useState(0);
 
   const handleGameStart = () => {
     if (gameStarted) {
@@ -82,20 +83,21 @@ function App(){
   }, [gameStarted, timer]);
 
 
-  const gameInfo = (result, nFlags, numMines) =>{
+  const gameInfo = (result, nFlags, numMines, nonMineFound) =>{
     if(result !== null){
       setGameStarted(false);
     }
     let minesLeft = numMines - nFlags;
     setMinesLeft(minesLeft);
     setResult(result);
+    setNonMineFound(nonMineFound);
   };
 
   return(
     <div className="App">
       <Header />
       <ControlPanel onLevelChange={handleLevelChange} selectedLevel={selectedLevel} gameStarted={gameStarted} onGameStart={handleGameStart} timer={timer} minesLeft={minesLeft} /> 
-      {result !== null && <GameOver result={result} timer={timer} level={selectedLevel} onGameStart={handleGameStart}/>}
+      {result !== null && <GameOver result={result} timer={timer} level={selectedLevel} onGameStart={handleGameStart} nonMineFound={nonMineFound}/>}
       <Board levelDetails={levelDetails} gameStarted={gameStarted} gameInfo={gameInfo} />
       <Footer />
     </div>

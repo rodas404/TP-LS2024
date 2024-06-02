@@ -40,6 +40,8 @@ function Cell({ cellDetails, updateRightClick, updateReveal }) {
     <div className={getClassNames()} onClick={revealCell} onContextMenu={handleRightClick}>
       {revealed ? (value === 'M' ? '💣' : value) : 
       (flag === 1 ? '🚩' : (flag === 2 ? '❓' : ""))}
+    
+      {/* {value === 'M' ? '💣' : (revealed ? value : "")} */}
     </div>
   );
 }
