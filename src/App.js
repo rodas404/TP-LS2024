@@ -9,7 +9,7 @@ import ControlPanel from "./components/control-panel/control-panel-comp";
 import GameOver from './components/game-over/game-over-comp';
 
 function App(){
-  
+
   const [gameStarted, setGameStarted] = useState(false);
   const [levelDetails, setLevelDetails] = useState({ numRows: 0, numCols: 0, numMines: 0 });
   const [timer, setTimer] = useState(0);
@@ -17,6 +17,7 @@ function App(){
   const [result, setResult] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [nonMineFound, setNonMineFound] = useState(0);
+
 
   const handleGameStart = () => {
     if (gameStarted) {
@@ -34,7 +35,7 @@ function App(){
     const { value } = event.currentTarget;
     setSelectedLevel(event.target.value);
     let newLevelDetails;
-  
+
     switch(value){
       case '1':
         newLevelDetails = {
@@ -64,13 +65,13 @@ function App(){
           numMines: 0
         };
     }
-  
+
     setLevelDetails(newLevelDetails);
   };
-  
+
   useEffect(() => {
     let interval;
-  
+
     if (gameStarted) {
       interval = setInterval(() => {
         setTimer((timer) => timer + 1);
@@ -78,7 +79,7 @@ function App(){
     } else if (!gameStarted && timer !== 0) {
       clearInterval(interval);
     }
-  
+
     return () => clearInterval(interval);
   }, [gameStarted, timer]);
 
@@ -98,7 +99,7 @@ function App(){
       <Header />
       <ControlPanel onLevelChange={handleLevelChange} selectedLevel={selectedLevel} gameStarted={gameStarted} onGameStart={handleGameStart} timer={timer} minesLeft={minesLeft} /> 
       {result !== null && <GameOver result={result} timer={timer} level={selectedLevel} onGameStart={handleGameStart} nonMineFound={nonMineFound}/>}
-      <Board levelDetails={levelDetails} gameStarted={gameStarted} gameInfo={gameInfo} />
+      <Board levelDetails={levelDetails} gameStarted={gameStarted} gameInfo={gameInfo}/>
       <Footer />
     </div>
   )

@@ -41,10 +41,10 @@ function Cell({ cellDetails, updateRightClick, updateReveal }) {
 
   return (
     <div className={getClassNames()} onClick={revealCell} onContextMenu={handleRightClick}>
-      {/* {revealed ? (value === 'M' ? <img src={mineImage} alt="💣"/> : value) : 
-      (flag === 1 ? <img src={flagImage} alt="🚩"/> : (flag === 2 ? <img src={questionImage} alt="❓"/> : ""))} */}
+      {revealed ? (value === 'M' ? <img src={mineImage} alt="💣"/> : value) : 
+      (flag === 1 ? <img src={flagImage} alt="🚩"/> : (flag === 2 ? <img src={questionImage} alt="❓"/> : ""))}
     
-      {value === 'M' ? '💣' : (revealed ? value : "")}
+      {/* {value === 'M' ? '💣' : (revealed ? value : "")} */}
     </div>
   );
 }
