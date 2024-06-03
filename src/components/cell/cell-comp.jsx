@@ -44,7 +44,7 @@ function Cell({ cellDetails, updateRightClick, updateReveal }) {
       {revealed ? (value === 'M' ? <img src={mineImage} alt="💣"/> : value) : 
       (flag === 1 ? <img src={flagImage} alt="🚩"/> : (flag === 2 ? <img src={questionImage} alt="❓"/> : ""))}
     
-      {/* {value === 'M' ? '💣' : (revealed ? value : "")} */}
+      {/* {value === 'M' ? <img src={mineImage} alt="💣"/> : (revealed ? value : "")} */}
     </div>
   );
 }

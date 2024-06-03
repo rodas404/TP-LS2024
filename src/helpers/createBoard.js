@@ -4,7 +4,7 @@ function createBoard(numRows, numCols, numMines) {
     for (let i = 0; i < numRows; i++) {
         board[i] = new Array(numCols);
         for (let j = 0; j < numCols; j++) {
-            board[i][j] = { //atributos necessarios para o funcionamento correto do jogo
+            board[i][j] = { //propriedades necessarios para o funcionamento correto do jogo
                 value: 0, 
                 revealed: false,
                 flag: 0

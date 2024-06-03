@@ -11,7 +11,7 @@ const GAME_STATES = {
   ongoing: null
 };
 
-function Board({ levelDetails, gameStarted, gameInfo, updateRevealedCells }) {
+function Board({ levelDetails, gameStarted, gameInfo}) {
   const { numRows, numCols, numMines } = levelDetails;
   const [nonMineFound, setNonMineFound] = useState(0);
   const [numFlag, setNumFlags] = useState(0);
@@ -31,7 +31,7 @@ function Board({ levelDetails, gameStarted, gameInfo, updateRevealedCells }) {
   }, [levelDetails,numRows, numCols, numMines, gameStarted]);
 
 
-  useEffect(() => {
+  useEffect(() => { //segundo useEffect para chamar a funcao gameInfo, por alguma razao nao funciona dentro do primeiro useEffect
     if (gameStarted) {
       gameInfo(GAME_STATES.ongoing, numFlag, numMines, nonMineFound);
     }
@@ -42,7 +42,7 @@ function Board({ levelDetails, gameStarted, gameInfo, updateRevealedCells }) {
     if (!gameStarted || board[x][y].revealed === true) {
       return;
     }
-    const boardCopy = [...board];
+    const boardCopy = [...board]; //cria copia do board
     if (boardCopy[x][y].flag === 0) {
       boardCopy[x][y].flag = 1;
       nFlags++;
@@ -120,9 +120,9 @@ function Board({ levelDetails, gameStarted, gameInfo, updateRevealedCells }) {
 
   return (
     <div className="board">
-      {board.map((row, x) => (
+      {board.map((row, x) => ( //cria linhas para o array
         <div key={x} className="board-row">
-          {row.map((cell, y) => {
+          {row.map((cell, y) => { //cria colunas para o array
             const key = `${x}-${y}`;
             const cellDetails = {
               cell: cell,
