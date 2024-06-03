@@ -21,11 +21,11 @@ function Board({ levelDetails, gameStarted, gameInfo}) {
 
   useEffect(() => {
     if (gameStarted) {
-      const boardCopy = createBoard(numRows, numCols, numMines);
+      const board = createBoard(numRows, numCols, numMines);
       setFirstClick(false);
       setNonMineFound(numRows * numCols - numMines);
       setResult(GAME_STATES.ongoing);
-      setBoard(boardCopy);
+      setBoard(board);
       setNumFlags(0);
     }
   }, [levelDetails,numRows, numCols, numMines, gameStarted]);

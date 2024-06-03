@@ -15,7 +15,7 @@ function App(){
   const [timer, setTimer] = useState(0);
   const [minesLeft, setMinesLeft] = useState(0);
   const [result, setResult] = useState(null);
-  const [selectedLevel, setSelectedLevel] = useState(0);
+  const [selectedLevel, setSelectedLevel] = useState("0");
   const [nonMineFound, setNonMineFound] = useState(0);
 
 
