@@ -1,5 +1,5 @@
 function revealZeros(board, x, y, nonMineFound) {
-    if (board[x][y].flag === 0) {
+    if (board[x][y].flag !== 1) {
         board[x][y].revealed = true; //se nao tiver flag, revela e soma contador
         nonMineFound--;
     }
@@ -12,10 +12,10 @@ function revealZeros(board, x, y, nonMineFound) {
             if (dx >= 0 && dx < board.length && dy >= 0 && dy < board[0].length) { //ve se esta dentro dos limites
                 const cell = board[dx][dy];
 
-                if (cell.value === 0 && !cell.revealed && cell.flag === 0) {
+                if (cell.value === 0 && !cell.revealed && cell.flag !== 1) {
                     nonMineFound= revealZeros(board, dx, dy, nonMineFound); //reseta ao encontrar outra celula com 0
                 }
-                else if(!cell.revealed && cell.flag === 0){
+                else if(!cell.revealed && cell.flag !== 1){
                     cell.revealed = true; //se nao estiver revelado e nao tiver flag, revela e soma contador
                     nonMineFound--;
                 }
